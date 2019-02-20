@@ -17,6 +17,7 @@ import java.util.List;
 public class Question {
     //Variables
     @Id
+    private int questionId;
     private String question;
     private String description;
     private List<String> topics;

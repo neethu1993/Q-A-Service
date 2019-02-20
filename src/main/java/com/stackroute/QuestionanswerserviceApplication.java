@@ -27,10 +27,13 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
+		int count = questionRepository.findAll().size();
 		List<Question> questions = readQuestionsFromCSV("Questions.txt");
 		for (Question q : questions) {
+			q.setQuestionId(++count);
 			System.out.println(questionRepository.save(q));
 		}
+		System.out.println(questionRepository.findAll().size());
 	}
 	public static List<Question> readQuestionsFromCSV(String fileName){
 		List<Question> questions = new ArrayList<>();
@@ -82,12 +85,9 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 		}
 		long timestamp = Long.parseLong(metadata[2]);
 		User user = new User(metadata[3],metadata[4],metadata[5]);
-//		int price = Integer.parseInt(metadata[1]);
-//		String author = metadata[2];
-//    public Question(final String question, final String description, final List<String> topics, final int upvotes, final long timestamp, final int downvotes, final User user, final List<Comment> comment, final List<Answer> answer) {
 
 		// create and return question of this metadata
-		return new Question(question, null,topics,0,timestamp,0,user,null,null);
+		return new Question(0,question, null,topics,0,timestamp,0,user,null,null);
 	}
 
 
